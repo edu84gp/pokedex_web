@@ -1,19 +1,18 @@
-const cantidadPokemonPorPagina = 30;
-const URL_POKEAPI = `https://pokeapi.co/api/v2/pokemon?limit=${cantidadPokemonPorPagina}&offset=`;
 
-export async function obtenerListaPokemon(offset) {
-  if (offset < 0 || offset > 1026) return null;
+export async function obtenerListaPokemon(offset, cantidadPokemonPorPagina) {
+  const offsetMin = 0;
+  const offsetMax = 1024;
+
+  if (offset < offsetMin || offset > offsetMax) return null;
+  // if (cantidadPokemonPorPagina != Number) return null;
 
   try {
-    const respuesta = await fetch(`${URL_POKEAPI}${offset}`);
+    const URL_POKEAPI = `https://pokeapi.co/api/v2/pokemon?limit=${cantidadPokemonPorPagina}&offset=${offset}`;
+    const respuesta = await fetch(`${URL_POKEAPI}`);
 
     const datosListaGeneral = await respuesta.json();
     const listaURL = datosListaGeneral.results.map((pokemon) => pokemon.url);
-    return {
-      previousPageURL: datosListaGeneral.previous,
-      nextPageURL: datosListaGeneral.next,
-      listaURL: listaURL,
-    };
+    return listaURL;
   } catch (error) {
     console.error(
       `Error al obtener el listado desde el Pokémon ${offset + 1}: ${error}`,
@@ -22,10 +21,9 @@ export async function obtenerListaPokemon(offset) {
 }
 
 export async function obtenerDatosPokemons(listadoPokemons) {
-  if (!listadoPokemons) return null;
-
   try {
-    const promesasPokemons = listadoPokemons.listaURL.map(async (url) => {
+    if (!listadoPokemons) return null;
+    const promesasPokemons = listadoPokemons.map(async (url) => {
       const respuesta = await fetch(url);
       const pokemon = await respuesta.json();
 
@@ -39,10 +37,9 @@ export async function obtenerDatosPokemons(listadoPokemons) {
         tipo2,
       };
     });
-
     const datosPokemons = await Promise.all(promesasPokemons);
     return datosPokemons;
   } catch (error) {
-    console.error(`Error al obtener los datos de Pokémon: ${error}`);
+    console.error(`Error al obtener los datos de los Pokémon: ${error}`);
   }
 }
