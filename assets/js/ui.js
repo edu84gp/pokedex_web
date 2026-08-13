@@ -32,11 +32,11 @@ export async function insertarHTML(datosPokemons) {
       const id = String(pokemon.id).padStart(4, "0");
       const tipo2 = pokemon.tipo2;
       // html de las tarjetas
-      const htmlTarjeta = `<div class="carta-pokemon ${tipo1}">
+      const htmlTarjeta = `<div class="${tipo1} carta-pokemon">
       <div class="id-pokemon"><span class="caja bg-green">#${id}</span></div>
 <div class="imagen-pokemon"><img src="${pokemon.img}"></div>
 <div class="nombre-pokemon">${pokemon.nombre}</div>
-<div class="tipos-pokemon gap-6">
+<div class="tipos-pokemon gap-3">
 <div class="caja ${tipo1}">${pokemon.tipo1}</div>`
 
 // Según si hay tipo 2 o no, finalizamos el html de una u otra manera
