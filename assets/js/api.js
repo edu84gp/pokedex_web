@@ -1,12 +1,8 @@
-
 export async function obtenerListaPokemon(offset, cantidadPokemonPorPagina) {
-  const offsetMin = 0;
-  const offsetMax = 1024;
-
-  if (offset < offsetMin || offset > offsetMax) return null;
-  // if (cantidadPokemonPorPagina != Number) return null;
-
   try {
+    const offsetMin = 0;
+    const offsetMax = 1024;
+    if (offset < offsetMin || offset > offsetMax) return null;
     const URL_POKEAPI = `https://pokeapi.co/api/v2/pokemon?limit=${cantidadPokemonPorPagina}&offset=${offset}`;
     const respuesta = await fetch(`${URL_POKEAPI}`);
 

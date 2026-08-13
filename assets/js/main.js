@@ -1,25 +1,52 @@
 import { obtenerListaPokemon, obtenerDatosPokemons } from "./api.js";
-import { insertarHTML } from "./ui.js";
+import {
+  insertarHTML,
+  actualizarBotones,
+  cantidadPokemonPorPagina,
+  actualizarPaginacion,
+} from "./ui.js";
 
-let paginaActual = 1
+let paginaInicial = 1;
+const btnNext = document.getElementById("btn-next");
+const btnPrev = document.getElementById("btn-prev");
+const menuPaginacion = document.getElementById("menu-paginacion");
 
-async function cargarPagina(numeroPagina) {
+
+async function cargarPagina(paginaActual) {
   try {
-    let cantidadPokemonPorPagina = 30;
-    let offset = (numeroPagina - 1)*cantidadPokemonPorPagina;
+    let offset = (paginaActual - 1) * cantidadPokemonPorPagina;
     // obtener lista de pokémons y sus datos
     const lista = await obtenerListaPokemon(offset, cantidadPokemonPorPagina);
+
     const datosPokemons = await obtenerDatosPokemons(lista);
-    console.log(datosPokemons)
+    const insertarPokemons = await insertarHTML(datosPokemons);
 
-
-    
+    actualizarBotones(paginaActual);
   } catch (error) {
-    console.log("Error al cargar la página: ", error)
+    console.log("Error al cargar la página: ", error);
   }
-
 }
 
+actualizarPaginacion(paginaInicial);
+await cargarPagina(paginaInicial);
 
-await cargarPagina(paginaActual)
 
+btnNext.addEventListener("click", () => {
+  paginaInicial++;
+  actualizarPaginacion(paginaInicial);
+  cargarPagina(paginaInicial);
+});
+
+btnPrev.addEventListener("click", () => {
+  paginaInicial--;
+  actualizarPaginacion(paginaInicial);
+  cargarPagina(paginaInicial);
+});
+
+menuPaginacion.addEventListener("click", (event) => {
+  if (event.target.classList.contains("btn-pagina")) {
+    paginaInicial = Number(event.target.dataset.pagina);
+    actualizarPaginacion(paginaInicial)
+    cargarPagina(paginaInicial);
+  }
+});
