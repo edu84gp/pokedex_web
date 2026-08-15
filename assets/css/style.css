@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Press+Start+2P&display=swap");
+@keyframes shine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 60% 50%; }
+}
 :root {
   --spacing: 0.25rem;
   --radius-2xl: 1rem;
@@ -57,6 +61,7 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
+  flex-wrap:wrap;
 }
 
 #grid-pokemons {
@@ -69,6 +74,12 @@ main {
 
 .gap-3 {
   gap: calc(var(--spacing) * 3);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.gap-5 {
+  gap: calc(var(--spacing) * 5);
 }
 .gap-6 {
   gap: calc(var(--spacing) * 6);
@@ -84,26 +95,53 @@ main {
   background-color: rgba(21, 238, 21, 0.4);
 }
 .carta-pokemon {
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
-  border: 2px solid rgba(255, 222, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 10px;
   border-radius: var(--radius-2xl);
   height: 100%;
-  background-image: linear-gradient(
-    to top-left rgba(240, 240, 240, 0.3),
-    rgba(255, 255, 255, 0.3)
+  background: linear-gradient(
+    150deg,
+    rgba(215, 215, 215, 1) 0%,
+    rgba(240, 240, 240, 0.2) 20%,
+    rgba(166, 166, 166, 0.5) 40%,
+    rgba(240, 240, 240, 1) 60%,
+    rgba(215, 215, 215, 0.75) 80%,
+    rgba(240, 240, 240, 0.5) 100%
   );
-  background-blend-mode: lighten;
+    animation: shine 4s ease-in-out infinite alternate;
 
+  background-size: 200% 200%;
+  border: 1px solid #999;
   transition:
+    transform 0.25s,
     box-shadow 0.25s,
-    border-color 0.25s;
+    border-color 0.25s,
+    background 0.25s;
+  img,
+  .nombre-pokemon {
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+.carta-pokemon:hover {
+  transform: scale(1.05);
+  box-shadow: rgba(255, 222, 0, 0.5) 0px 4px 20px;
+  border-color: rgba(255, 222, 0, 0.5);
+  background-size: 100% 100%;
+  animation: shine 3s ease-in infinite alternate;
+  
+  img {
+    transform: scale(1.5);
+  }
+  .nombre-pokemon {
+    transform: scale(1.25);
+  }
 }
 
 .id-pokemon {
   display: flex;
   justify-content: center;
   font-size: 7px;
-  margin: 10px 0 10px 0;
+  margin: 15px 0 15px 0;
 }
 
 .imagen-pokemon {
@@ -111,10 +149,11 @@ main {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
   margin: 10px;
-  padding: 10px 50px;
+  padding: 10px 40px;
   border-radius: 10%;
   img {
     width: calc(var(--spacing) * 20);
+    margin: 15px;
   }
 }
 
@@ -126,11 +165,12 @@ main {
   text-transform: capitalize;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
-  text-shadow:  2px 0px 2px rgba(0, 0, 0, 0.3),
-   -2px 0px 2px rgba(0, 0, 0, 0.3),
-   0px 2px 2px rgba(0, 0, 0, 0.3),
-   0px -2px 2px rgba(0, 0, 0, 0.3);
+  margin: 10px 0 5px 0;
+  text-shadow:
+    2px 0px 2px rgba(0, 0, 0, 0.3),
+    -2px 0px 2px rgba(0, 0, 0, 0.3),
+    0px 2px 2px rgba(0, 0, 0, 0.3),
+    0px -2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .tipos-pokemon {
@@ -141,19 +181,19 @@ main {
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
-/* colores pokemons */
+
+/* colores pokemons según su tipo principal */
 .normal {
   background-color: #afafaf;
 }
-
 .fire {
   background-color: #ee8130;
 }
 .water {
   background-color: #6390f0;
 }
-
 .electric {
   background-color: #f7d02c;
 }
@@ -208,15 +248,106 @@ main {
   display: none;
 }
 
+nav {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: calc(var(--spacing) * 3);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#menu-paginacion {
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.fila-paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 6px; 
+  flex-wrap: wrap;
+}
+
+.btn-pagina {
+  background-color: #ffde00;
+  color: #090d1a;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: calc(var(--spacing) * 3);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
+transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s, color 0.25s;
+}
+
+.btn-pagina:hover {
+  background-color: #090d1a;
+  color: #ffde00;
+    transform: scale(1.2);
+}
+
+#btn-prev:hover, #btn-next:hover {
+transform: scale(1.03);
+}
+
+.pag-actual {
+  background-color: #090d1a;
+  color: #ffde00;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: calc(var(--spacing) * 3);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
+}
+footer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: calc(var(--spacing) * 3);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
+}
+
+footer::before{
+content: "";
+display: block;
+width: 100%;
+height: 2px;
+background-color: rgb(255, 255, 255);
+margin-bottom: 30px;
+margin-top: -10px;
+}
+
+
 /* responsive */
+@media screen and (max-width: 1250px) {
+  .grid-5 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .grid-5 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (max-width: 512px) {
+@media screen and (max-width: 750px) {
   .grid-5 {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 512px) {
+  .grid-5 {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

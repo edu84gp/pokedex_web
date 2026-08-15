@@ -10,6 +10,9 @@ const footer = document.querySelector("footer");
 export let cantidadPokemonPorPagina = 30;
 let cantidadTotalPokemons = 1025;
 
+const totalPaginas = Math.ceil(cantidadTotalPokemons / cantidadPokemonPorPagina);
+
+
 export async function insertarHTML(datosPokemons) {
   try {
     const pokemonInicial = datosPokemons[0].id;
@@ -21,10 +24,9 @@ export async function insertarHTML(datosPokemons) {
 
     // Limpiar e insertar el GRID de pokémons
     main.innerHTML = `
-           <section id="grid-pokemons" class="grid-5 gap-3">
+           <section id="grid-pokemons" class="grid-5 gap-4">
     </section>`;
 
-    
     // añadir tarjetas al grid
     const gridPokemons = document.getElementById("grid-pokemons");
     for (const pokemon of datosPokemons) {
@@ -37,15 +39,15 @@ export async function insertarHTML(datosPokemons) {
 <div class="imagen-pokemon"><img src="${pokemon.img}"></div>
 <div class="nombre-pokemon">${pokemon.nombre}</div>
 <div class="tipos-pokemon gap-3">
-<div class="caja ${tipo1}">${pokemon.tipo1}</div>`
+<div class="caja ${tipo1}">${pokemon.tipo1}</div>`;
 
-// Según si hay tipo 2 o no, finalizamos el html de una u otra manera
-      let htmlTipo2 = ""
+      // Según si hay tipo 2 o no, finalizamos el html de una u otra manera
+      let htmlTipo2 = "";
       tipo2
-        ? (htmlTipo2= `<div class="caja ${tipo2}">${tipo2}</div></div></div>`)
-        : (htmlTipo2= `</div></div>`);
+        ? (htmlTipo2 = `<div class="caja ${tipo2}">${tipo2}</div></div></div>`)
+        : (htmlTipo2 = `</div></div>`);
 
-        gridPokemons.innerHTML += `${htmlTarjeta} ${htmlTipo2}`;
+      gridPokemons.innerHTML += `${htmlTarjeta} ${htmlTipo2}`;
     }
   } catch (error) {
     console.error(
@@ -54,20 +56,16 @@ export async function insertarHTML(datosPokemons) {
   }
 }
 
-const totalPaginas = Math.ceil(
-  cantidadTotalPokemons / cantidadPokemonPorPagina,
-);
-
 // Visibilizar o invisibilizar los botones del menú de navegación según la página en la que nos encontremos
 export function actualizarBotones(paginaActual) {
   try {
     if (paginaActual <= 1) {
-      btnPrev.classList = "invisible";
+      btnPrev.classList.toggle("invisible")
     } else if (paginaActual >= totalPaginas) {
-      btnNext.classList = "invisible";
+      btnNext.classList.toggle("invisible");
     } else {
-      btnNext.classList = "visible";
-      btnPrev.classList = "visible";
+      btnNext.classList = "btn-pagina";
+      btnPrev.classList = "btn-pagina";
     }
   } catch (error) {
     console.error("Error al insertar el menú de paginación, error: ", error);
@@ -75,22 +73,19 @@ export function actualizarBotones(paginaActual) {
   menuPaginacion.innerHTML;
 }
 
-// actualizacion del menu de paginación 
+// actualizacion del menu de paginación
 export function actualizarPaginacion(paginaActual) {
   try {
-    let htmlContenido = "";
+    let botonesAnteriores = "";
+    let botonesPosteriores = "";
 
     for (
       let numeroPagina = paginaActual - 5;
-      numeroPagina <= paginaActual;
+      numeroPagina < paginaActual;
       numeroPagina++
     ) {
-      if (paginaActual === 1) {
-        htmlContenido = "";
-      } else if (numeroPagina === paginaActual) {
-        htmlContenido += " &#8230; Página actual &#8230; ";
-      } else if (numeroPagina >= 1) {
-        htmlContenido += `<button class="btn-pagina" data-pagina="${numeroPagina}"> ${numeroPagina} </button>`;
+if (numeroPagina > 1) {
+        botonesAnteriores += `<button class="btn-pagina" data-pagina="${numeroPagina}"> ${numeroPagina} </button>`;
       }
     }
 
@@ -100,10 +95,16 @@ export function actualizarPaginacion(paginaActual) {
       numeroPagina++
     ) {
       if (numeroPagina <= totalPaginas) {
-        htmlContenido += `<button class="btn-pagina" data-pagina="${numeroPagina}"> ${numeroPagina} </button>`;
+        botonesPosteriores += `<button class="btn-pagina" data-pagina="${numeroPagina}"> ${numeroPagina} </button>`;
       }
     }
-    menuPaginacion.innerHTML = htmlContenido;
+    menuPaginacion.innerHTML = `
+      <div class="fila-paginacion">${botonesAnteriores}</div>
+      <div class="fila-paginacion">
+        <span class="pag-actual"> &#8230; Página actual (${paginaActual}) &#8230; </span>
+      </div>
+      <div class="fila-paginacion">${botonesPosteriores}</div>
+    `;
   } catch (error) {
     console.error(
       "Se ha producido un error al actualizar el menú de paginación: ",
