@@ -25,12 +25,25 @@ export async function obtenerDatosPokemons(listadoPokemons) {
 
       const tipo2 = pokemon.types[1] ? pokemon.types[1].type.name : "";
 
+      // habilidades para el modal
+      const abilities = [];
+      for (const a of pokemon.abilities) {
+        abilities.push(a.ability.name);
+      }
+      // stats para el modal
+      const stats = {};
+      for (const s of pokemon.stats) {
+        stats[s.stat.name] = s.base_stat;
+      }
       return {
         id: pokemon.id,
         nombre: pokemon.name,
         img: pokemon.sprites.other["official-artwork"].front_default,
         tipo1: pokemon.types[0].type.name,
         tipo2,
+        // modal
+        stats,
+        abilities,
       };
     });
     const datosPokemons = await Promise.all(promesasPokemons);

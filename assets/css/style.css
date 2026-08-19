@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Press+Start+2P&display=swap");
 @keyframes shine {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 60% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 60% 50%;
+  }
 }
 :root {
   --spacing: 0.25rem;
@@ -25,6 +29,7 @@ body {
 /* clases del header */
 header {
   max-height: 400px;
+  width: 100vw;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -35,7 +40,6 @@ header {
     max-width: 75px;
     margin-bottom: calc(var(--spacing) * 4);
     background: rgba(238, 21, 21, 0.4);
-    backdrop-filter: blur(12px);
     border-radius: 20%;
   }
   h1 {
@@ -61,7 +65,7 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
 #grid-pokemons {
@@ -96,6 +100,7 @@ main {
 }
 .carta-pokemon {
   box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 10px;
+  border: 2px solid rgba(255, 222, 0, 0.2);
   border-radius: var(--radius-2xl);
   height: 100%;
   background: linear-gradient(
@@ -107,7 +112,7 @@ main {
     rgba(215, 215, 215, 0.75) 80%,
     rgba(240, 240, 240, 0.5) 100%
   );
-    animation: shine 4s ease-in-out infinite alternate;
+  animation: shine 4s ease-in-out infinite alternate;
 
   background-size: 200% 200%;
   border: 1px solid #999;
@@ -128,7 +133,8 @@ main {
   border-color: rgba(255, 222, 0, 0.5);
   background-size: 100% 100%;
   animation: shine 3s ease-in infinite alternate;
-  
+  cursor: pointer;
+  user-select: none;
   img {
     transform: scale(1.5);
   }
@@ -154,6 +160,7 @@ main {
   img {
     width: calc(var(--spacing) * 20);
     margin: 15px;
+    filter: drop-shadow(rgba(0, 0, 0, 0.5) 0px 8px 5px);
   }
 }
 
@@ -245,7 +252,7 @@ main {
 
 /* Menú paginación */
 .invisible {
-  display: none;
+  display: none !important;
 }
 
 nav {
@@ -259,7 +266,7 @@ nav {
 }
 
 #menu-paginacion {
-display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -268,7 +275,7 @@ display: flex;
 .fila-paginacion {
   display: flex;
   justify-content: center;
-  gap: 6px; 
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -281,17 +288,24 @@ display: flex;
   padding: 10px 20px;
   border-radius: calc(var(--spacing) * 3);
   box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
-transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s, color 0.25s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background-color 0.25s,
+    color 0.25s;
 }
 
 .btn-pagina:hover {
   background-color: #090d1a;
   color: #ffde00;
-    transform: scale(1.2);
+  transform: scale(1.2);
+  cursor: pointer;
+  user-select: none;
 }
 
-#btn-prev:hover, #btn-next:hover {
-transform: scale(1.03);
+#btn-prev:hover,
+#btn-next:hover {
+  transform: scale(1.03);
 }
 
 .pag-actual {
@@ -307,6 +321,9 @@ transform: scale(1.03);
 }
 footer {
   width: 100%;
+  font-size: 9px;
+  font-weight: bolder;
+  color: #8899bb;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
@@ -317,16 +334,15 @@ footer {
   box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
 }
 
-footer::before{
-content: "";
-display: block;
-width: 100%;
-height: 2px;
-background-color: rgb(255, 255, 255);
-margin-bottom: 30px;
-margin-top: -10px;
+footer::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  margin-top: -10px;
 }
-
 
 /* responsive */
 @media screen and (max-width: 1250px) {
@@ -351,3 +367,4 @@ margin-top: -10px;
     grid-template-columns: repeat(1, 1fr);
   }
 }
+

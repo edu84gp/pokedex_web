@@ -1,0 +1,239 @@
+/* MODAL */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(4, 7, 18, 0.78);
+  backdrop-filter: blur(8px);
+  animation: modal-fade-in 0.2s ease-out;
+}
+
+#contenedor-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr);
+  width: min(820px, 100%);
+  max-height: min(680px, 92vh);
+  overflow: hidden;
+  border: 2px solid rgba(255, 222, 0, 0.5);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  animation: modal-rise-in 0.25s ease-out;
+}
+
+#modal-card {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 2rem 2rem;
+  color: #fff;
+  /* background-image: linear-gradient(rgba(151, 151, 151, 0.12), transparent 45%); */
+  align-self: flex-start;
+  font-size: 10px;
+  background-image: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 1),
+    rgba(0, 0, 0, 0.4)
+  );
+}
+
+#modal-data {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2.5rem 2rem 2rem;
+  color: #fff;
+  background: #090d1a;
+}
+
+#btn-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(9, 13, 26, 0.55);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+#btn-close:hover {
+  background: #ee1515;
+  transform: rotate(90deg);
+}
+
+.big {
+  transform: scale(1.2);
+}
+
+.imagen-pokemon-modal {
+  width: min(280px, 85%);
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 12%;
+  backdrop-filter: blur(4px);
+  filter: drop-shadow(rgba(0, 0, 0, 0.85) 4px 4px 10px);
+}
+
+.imagen-pokemon-modal img {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.nombre-pokemon-modal {
+  margin: 0.75rem 0 1.25rem;
+  font-family: Nunito, sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 900;
+  text-transform: capitalize;
+  text-shadow: 2px 3px 0 rgba(0, 0, 0, 0.28);
+}
+
+.tipos-pokemon-modal {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: Nunito, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#modal-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.title-modal {
+  color: #ffde00;
+  font-size: 10px;
+}
+
+.stats,
+.ability {
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: Nunito, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: transform 0.25s;
+}
+
+.stats:hover,
+.ability:hover {
+  transform: scale(1.05);
+}
+
+.hp {
+  color: #ff5959;
+  background: rgba(255, 89, 89, 0.08);
+}
+.atk {
+  color: #f5ac78;
+  background: rgba(245, 172, 120, 0.08);
+}
+.def {
+  color: #ffde00;
+  background: rgba(255, 222, 0, 0.08);
+}
+.sp-atk {
+  color: #9db7f9;
+  background: rgba(157, 183, 245, 0.08);
+}
+.sp-def {
+  color: #a7db8d;
+  background: rgba(167, 219, 141, 0.08);
+}
+.spd {
+  color: #fa92b2;
+  background: rgba(250, 146, 178, 0.08);
+}
+
+#modal-abilities {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.ability {
+  color: #dce5ff;
+  background: rgba(136, 153, 187, 0.12);
+  text-transform: capitalize;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #modal-overlay {
+    padding: 0.75rem;
+  }
+
+  #contenedor-modal {
+    grid-template-columns: 1fr;
+    max-height: 94vh;
+  }
+
+  #modal-card,
+  #modal-data {
+    min-height: auto;
+  }
+
+  #modal-card {
+    padding: 2.5rem 1.25rem 1.75rem;
+  }
+  #modal-data {
+    padding: 1.75rem 1.25rem 2rem;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+
+  .imagen-pokemon-modal {
+    width: min(220px, 70%);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #modal-data {
+    max-height: 15vh;
+  }
+}

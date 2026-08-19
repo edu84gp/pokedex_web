@@ -10,8 +10,9 @@ const footer = document.querySelector("footer");
 export let cantidadPokemonPorPagina = 30;
 let cantidadTotalPokemons = 1025;
 
-const totalPaginas = Math.ceil(cantidadTotalPokemons / cantidadPokemonPorPagina);
-
+const totalPaginas = Math.ceil(
+  cantidadTotalPokemons / cantidadPokemonPorPagina,
+);
 
 export async function insertarHTML(datosPokemons) {
   try {
@@ -34,7 +35,7 @@ export async function insertarHTML(datosPokemons) {
       const id = String(pokemon.id).padStart(4, "0");
       const tipo2 = pokemon.tipo2;
       // html de las tarjetas
-      const htmlTarjeta = `<div class="${tipo1} carta-pokemon">
+      const htmlTarjeta = `<div class="${tipo1} carta-pokemon" data-id="${id}">
       <div class="id-pokemon"><span class="caja bg-green">#${id}</span></div>
 <div class="imagen-pokemon"><img src="${pokemon.img}"></div>
 <div class="nombre-pokemon">${pokemon.nombre}</div>
@@ -60,7 +61,7 @@ export async function insertarHTML(datosPokemons) {
 export function actualizarBotones(paginaActual) {
   try {
     if (paginaActual <= 1) {
-      btnPrev.classList.toggle("invisible")
+      btnPrev.classList.toggle("invisible");
     } else if (paginaActual >= totalPaginas) {
       btnNext.classList.toggle("invisible");
     } else {
@@ -84,7 +85,7 @@ export function actualizarPaginacion(paginaActual) {
       numeroPagina < paginaActual;
       numeroPagina++
     ) {
-if (numeroPagina > 1) {
+      if (numeroPagina > 1) {
         botonesAnteriores += `<button class="btn-pagina" data-pagina="${numeroPagina}"> ${numeroPagina} </button>`;
       }
     }
@@ -111,4 +112,78 @@ if (numeroPagina > 1) {
       error,
     );
   }
+}
+
+// modal
+const modalOverlay = document.getElementById("modal-overlay");
+
+export function generarModal(pokemon) {
+  try {
+    // datos genéricos y tipos
+    const tipo1 = pokemon.tipo1;
+    const id = String(pokemon.id).padStart(4, "0");
+    const tipo2 = pokemon.tipo2;
+    // html del tipo 2 si el pokemon tiene tipo 2
+    let htmlTipo2 = "";
+    if (tipo2) htmlTipo2 = `<div class="caja big ${tipo2}">${tipo2}</div>`;
+
+    // datos stats y abilities
+    const stats = pokemon.stats;
+    let abilitiesHtml = "";
+    pokemon.abilities.forEach((ability) => {
+      abilitiesHtml += `<div class="ability">${ability}</div>`;
+    });
+
+    // html de las tarjetas
+    modalOverlay.innerHTML = `<div id="contenedor-modal">
+      <div id="btn-close">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </div>
+      <div id="modal-card" class="${tipo1}">
+        <div class="id-pokemon-modal caja bg-green big">#${id}</div>
+        <div class="imagen-pokemon-modal"><img src="${pokemon.img}" /></div>
+        <div class="nombre-pokemon-modal">${pokemon.nombre}</div>
+        <div class="tipos-pokemon-modal gap-6">
+          <div class="caja big ${tipo1}">${pokemon.tipo1}</div>
+          ${htmlTipo2}
+        </div>
+      </div>
+      <div id="modal-data">
+      <h4 class="title-modal">BASE STATS</h4>
+        <div id="modal-stats">
+          
+          <span class="hp stats">hp: ${stats.hp}</span>
+          <span class="atk stats">atk: ${stats.attack}</span>
+          <span class="def stats">def: ${stats.defense}</span>
+          <span class="sp-atk stats">sp.atk: ${stats["special-attack"]}</span>
+          <span class="sp-def stats">sp.def: ${stats["special-defense"]}</span>
+          <span class="spd stats">spd: ${stats.speed}</span>
+        </div>
+        <h4 class="title-modal">HABILIDADES</H4>
+        <div id="modal-abilities">${abilitiesHtml}</div>
+      </div>
+    </div>`;
+
+    modalOverlay.classList.remove("invisible");
+    const btnClose = document.getElementById("btn-close");
+
+    btnClose.addEventListener("click", () => cerrarModal());
+  } catch (error) {
+    console.error("Error al abrir el modal ", error);
+  }
+}
+
+export function cerrarModal() {
+  modalOverlay.classList.add("invisible");
 }
