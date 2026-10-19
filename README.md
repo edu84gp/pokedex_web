@@ -13,7 +13,7 @@ _«Atrapa» datos en tiempo real desde la PokéAPI con paginación fluida, tarje
 ![Responsive](https://img.shields.io/badge/Responsive-090D1A?style=for-the-badge&logo=csswizardry&logoColor=FFDE00)
 ![No Dependencies](https://img.shields.io/badge/Zero_Dependencies-8899BB?style=for-the-badge&logo=npm&logoColor=white)
 
-[Ver Demo](#-cómo-probarlo) · [Características](#-características) · [Tecnologías](#️-tecnologías) · [Instalación](#-instalación-y-uso)
+[Ver Demo](https://edu84gp.github.io/pokedex_web/) · [Características](#-características) · [Tecnologías](#️-tecnologías) · [Instalación](#-instalación-y-uso)
 
 </div>
 
@@ -59,7 +59,7 @@ Al hacer clic en cualquier tarjeta se abre un **modal de detalle** con sus estad
 ### 🧠 Arquitectura limpia (separación de responsabilidades)
 
 ```text
-web_pokemon/
+pokedex_web/
 ├── index.html              # Shell + paginación + overlay del modal
 ├── README.md
 └── assets/
@@ -85,8 +85,8 @@ No necesita build ni `npm install`. Solo un servidor estático local (los ES Mod
 **1. Clona el repositorio:**
 
 ```bash
-git clone https://github.com/edu84gp/web_pokemon.git
-cd web_pokemon
+git clone https://github.com/edu84gp/pokedex_web.git
+cd pokedex_web
 ```
 
 **2. Sirve el proyecto (elige una opción):**
@@ -178,7 +178,7 @@ Desarrollado con ❤️ por **Eduardo García** — _Full-Stack Developer_
 
 - 🐙 GitHub: [@edu84gp](https://github.com/edu84gp)
 - 💼 LinkedIn: [edu84gp](https://www.linkedin.com/in/edu84gp/)
-- 💼 Proyecto: `web_pokemon` — pieza de portfolio Front-End (HTML · CSS · JS + APIs REST)
+- 💼 Proyecto: `pokedex_web` — pieza de portfolio Front-End (HTML · CSS · JS + APIs REST)
 
 > Abierto a prácticas, junior roles y proyectos freelance. Si te ha gustado esta Pokédex, revisa mis otros repos o contáctame por GitHub o LinkedIn.
 
@@ -186,7 +186,7 @@ Desarrollado con ❤️ por **Eduardo García** — _Full-Stack Developer_
 
 ## 📄 Licencia y créditos
 
-- Código propio con fines educativos y de portfolio.
+- Código bajo licencia **MIT** (ver `LICENSE`) con fines educativos y de portfolio.
 - Datos e imágenes © **PokéAPI / Pokémon — Nintendo / Creatures Inc. / GAME FREAK inc.** Este proyecto no está afiliado ni respaldado por Nintendo.
 - Fuentes: _Press Start 2P_ y _Nunito_ (Google Fonts, SIL Open Font License).
 
