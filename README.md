@@ -66,10 +66,11 @@ pokedex_web/
     ├── css/
     │   ├── style.css       # Tema global, grid, tarjetas, paginación, responsive
     │   └── modal.css       # Overlay, ficha detalle, stats, animaciones
-    └── js/
+    ├── js/
         ├── api.js          # Capa de datos: fetch a PokéAPI, normalización
         ├── ui.js           # Capa de vista: render grid, paginación, modal
         └── main.js         # Orquestador: estado de página + eventos
+    └── favicon.svg     # Icono del sitio (Poké Ball en SVG)
 ```
 
 - `api.js` → solo habla con la red y devuelve objetos limpios `{ id, nombre, img, tipo1, tipo2, stats, abilities }`.
